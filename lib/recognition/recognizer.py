@@ -61,7 +61,7 @@ class Recognizer:
 
         Returns :
         -> embeddings in pandas dataframe format
-         
+        
         """
 
         if self.verbose == True :

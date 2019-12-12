@@ -181,6 +181,7 @@ class Recognizer:
             max_simi_name = ""
             max_simi = 0
             simi_list = []
+            found = False
             for i in range(len(self.embeddings)):
 
                 stored_embedding = torch.from_numpy(self.embeddings["embeddings"].iloc[i])
@@ -198,8 +199,9 @@ class Recognizer:
                 max_simi_name = "Unknown"
             else :     
                 max_simi_name, _ = max_simi_name.split(".")
+                found = True
 
-            preds.append({"Prediction ": max_simi_name})
+            preds.append({"Prediction ": max_simi_name, "Found": found})
             max_simi_name = ""
             max_simi = 0   
             simi_list = []   

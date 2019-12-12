@@ -47,3 +47,11 @@ print(pred['Prediction'])
 
 More documentation/features will be provdided shortly.
 This repository will undergo furthur changes! 
+
+### Acknowledgements
+
+Pytorch Port of Facenet: https://github.com/timesler/facenet-pytorch
+
+Link To Facenet paper: [FaceNet: A Unified Embedding for Face Recognition and Clustering](https://arxiv.org/abs/1503.03832)
+
+

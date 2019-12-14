@@ -8,13 +8,6 @@ The module is built on top of a Pytorch Implementation of Facenet. For the purpo
 User registration and Verification is reduced to function calls. Images of users that need to be 'onboarded' the system, need to be put in a folder or image needs to supplied directly. Verification can be done by making the system look into folders or directly supplying images
 
 
-
-A few more modules/modifications will be added onto the repository : 
-* Module that clusters potraits of different people into separate categories
-* Module that indicates who all are present in a video on frame by frame basis
-
-
-
 The model performs well when it comes to correct classification of Known Positives (i.e. unseen pictures of the people in the database).The issue is arises when the model enocunters unknown-unseen pictures (i.e. pictures of people not in the database). This is a fundamental problem in such architectures. These issues have been referenced in OpenFace and David Sandberg's Github repo. To solve this out of the many approaches tried,  the one used is:
 
 * Make available unseen-positive images of known persons and unseen-unknown images of unknown individuals

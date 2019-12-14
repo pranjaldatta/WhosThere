@@ -32,7 +32,7 @@ class detect_frames:
     def detectAndCrop(self, frame) :
 
         if isinstance(frame, np.ndarray):
-            frame = Image.fromarray(frame, cv2.cvtColor(cv2.COLOR_BGR2RGB))
+            frame = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
         
         mtcnn_module = MTCNN(keep_all=True)
         boxes, prob = mtcnn_module.detect(frame)
@@ -42,7 +42,7 @@ class detect_frames:
             if prob > self.threshold:
                 face = extract_face(frame, box)
                 print("Face #{} detected with probability : {}".format(count + 1 , prob )) 
-                faces.append(face)
+                faces.append({"bbox":box, "prob":prob})
                 count = count + 1
                 if self.saveIn is not None:
                     img = self.toPIL(face).convert('RGB')

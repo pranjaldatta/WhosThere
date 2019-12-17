@@ -101,21 +101,25 @@ class Recognizer:
 
         if isinstance(img, np.ndarray):
             img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-
-        df = pd.read_pickle(os.path.join(self.embedLoc, "embeddings.pkl"))
+        if os.path.exists(os.path.join(self.embedLoc, "embeddings.pkl")) == True:
+            df = pd.read_pickle(os.path.join(self.embedLoc, "embeddings.pkl"))
+        else:
+            df = pd.DataFrame(columns=['name', 'embeddings'])   
         face_tensors = self.face_extracter(img)
         face_embeddings = self.resnet(torch.unsqueeze(face_tensors[0][1], 0))
         print("Embeddings generated for {} is of shape : {}".format(
                 name, embeddings.shape))
         face_embeddings = face_embeddings.detach().numpy().astype('float32')
-        df = df.append({
-            "name" : name,
-            "embeddings" : face_embeddings
-            }, sort = False, ignore_index = True)  
-
+        
+        if len(df[df["name"]==name].index.values) == 0:
+            df = df.append({
+                "name" : name,
+                "embeddings" : face_embeddings
+                }, sort = False, ignore_index = True)  
+        else:
+            df["embeddings"].iloc(df[df["name"] == name].index.values[0]) = face_embeddings
         df.to_pickle(os.path.join(self.embedLoc, "embeddings.pkl")) 
-        self.confidence = self.clf.cosine_similarity_func()     
-
+        
         return df
 
     def verify(self, lookIn, img=None, embeddings = None):
@@ -193,13 +197,21 @@ class Recognizer:
 
 
             simi_list.sort()
-            print("diff : ", simi_list[len(self.embeddings) - 1] - simi_list[0])
-            print("confidence : ", self.confidence)
-            if(simi_list[len(self.embeddings) - 1] - simi_list[0] <= self.confidence):
-                max_simi_name = "Unknown"
-            else :     
-                max_simi_name, _ = max_simi_name.split(".")
-                found = True
+            
+            if len(simi_list) == 1:
+                if simi_list[0] < self.threshold:
+                    max_simi_name = "Unknown"
+                else:
+                    max_simi_name  = max_simi_name.split(".")[0]    
+            else:    
+                print("diff : ", simi_list[len(self.embeddings) - 1] - simi_list[0])
+
+                
+                if(simi_list[len(self.embeddings) - 1] - simi_list[0] <= self.confidence):
+                    max_simi_name = "Unknown"
+                else :     
+                    max_simi_name = max_simi_name.split(".")[0]
+                    found = True
 
             preds.append({"Prediction ": max_simi_name, "Found": found})
             max_simi_name = ""

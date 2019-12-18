@@ -41,6 +41,10 @@ print(pred['Prediction'])
 More documentation/features will be provdided shortly.
 This repository will undergo furthur changes! 
 
+### Facial Recognition for Linux? 
+Check out the allow folder!
+
+
 ### Acknowledgements
 
 Pytorch Port of Facenet: https://github.com/timesler/facenet-pytorch

@@ -24,6 +24,7 @@ To set it up and running follow the instructions below:
    $ sudo cp /path/to/local/copy/lib/allow/allow.sh /usr/local/bin
    $ sudo cp /path/to/local/copy/lib/allow/allow.py /usr/local/bin
    ```
+   **Important substep**: Open up allow.py in any editor. Replace the locations (indicated by comments) "home/.../" and "home/.../embeddings.pkl" with any location within home that isnt read or write protected.
 
 4. Assuming that your conda environment is installed, allow.sh can now be used!   
    

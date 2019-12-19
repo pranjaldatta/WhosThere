@@ -6,7 +6,7 @@ import os
 import pandas as pd 
 import numpy as np 
 
-recog = recognizer.Recognizer("./", threshold=.5, verbose=True)
+recog = recognizer.Recognizer("/home/pranjal/", threshold=.5, verbose=True)
 
 def onboard():
     img = None
@@ -22,7 +22,7 @@ def onboard():
     return 200
 
 def verify():
-    embeddings = pd.read_pickle("./embeddings.pkl")
+    embeddings = pd.read_pickle("/home/pranjal/embeddings.pkl")
     img = None
     vid = cv2.VideoCapture(0)
     while True:

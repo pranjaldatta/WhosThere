@@ -98,7 +98,9 @@ class Recognizer:
         return df   
     
     def onboard_more(self, img, name):
-
+        if self.verbose == True :
+            sys.stdout = open(os.devnull, "w")        
+        
         if isinstance(img, np.ndarray):
             img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
         if os.path.exists(os.path.join(self.embedLoc, "embeddings.pkl")) == True:
@@ -119,7 +121,10 @@ class Recognizer:
         else:
             df["embeddings"].iloc(df[df["name"] == name].index.values[0]) = face_embeddings
         df.to_pickle(os.path.join(self.embedLoc, "embeddings.pkl")) 
-        
+
+        if self.verbose == True:
+            sys.stdout = self.std_outpipe
+
         return df
 
     def verify(self, lookIn, img=None, embeddings = None):

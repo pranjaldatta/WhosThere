@@ -1,8 +1,7 @@
 #!/bin/bash
-echo $*
-if [ -e /home/pranjal/whoconfig.txt ]
+if [ -e /etc/whoconfig.txt ]
     then
-    input="/home/pranjal/whoconfig.txt"
+    input="/etc/whoconfig.txt"
     while IFS= read -r line
     do
     data=$line
@@ -12,19 +11,30 @@ if [ -e /home/pranjal/whoconfig.txt ]
     conda activate facenet
     SCRIPT=$(readlink -f "$0")
     SCRIPT=$(dirname "$SCRIPT")
-    result=$(python3 "${SCRIPT}/allow.py" "-$1")   
-    if [ $result==1 ]
-    then
+    result=$(python3 "${SCRIPT}/allow.py" "-$1") 
+    if [ ${#result} -gt 1 ]
+    then 
+        result=200
+    fi    
+    
+    if [ $result == 1 ]
+    then   
         if [ $# -gt 1 ]
         then
             echo $data | sudo -S ${@:2} 
+        else
+            echo "Successfully verified."   
         fi    
+    elif [ $result==200 ]
+    then    
+        echo Success.
     else
         echo "Permission Denied."    
     fi
 else
     echo "Grant permission first ..."
     read -sp 'Password:' password
-    touch /home/pranjal/whoconfig.txt
-    echo $password >> /home/pranjal/whoconfig.txt 
+    echo $password | sudo -S touch /etc/whoconfig.txt   
+    sudo chmod 666 /etc/whoconfig.txt
+    echo $password | sudo -S echo $password >> /etc/whoconfig.txt 
 fi

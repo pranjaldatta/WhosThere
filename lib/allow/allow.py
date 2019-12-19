@@ -6,7 +6,7 @@ import os
 import pandas as pd 
 import numpy as np 
 
-recog = recognizer.Recognizer("/home/pranjal", threshold=.5, verbose=True)
+recog = recognizer.Recognizer("/home/pranjal/", threshold=.5, verbose=True)
 
 def onboard():
     img = None
@@ -19,7 +19,7 @@ def onboard():
     vid.release()    
     recog.onboard_more(img, "me")  
     cv2.destroyAllWindows()  
-
+    return 200
 
 def verify():
     embeddings = pd.read_pickle("/home/pranjal/embeddings.pkl")
@@ -46,7 +46,7 @@ parser.add_argument("-v", "--verify", help="Verify users",action="store_true")
 args = parser.parse_args()
 
 if args.onboard:
-        onboard()
+    onboard()
 if args.verify:
-        print(verify())
+    print(verify())
     

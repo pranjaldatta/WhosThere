@@ -1,8 +1,7 @@
 #!/bin/bash
-echo $*
-if [ -e /home/pranjal/whoconfig.txt ]
+if [ -e /usr/local/bin/whoconfig.txt ]
     then
-    input="/home/pranjal/whoconfig.txt"
+    input="/usr/local/bin/whoconfig.txt"
     while IFS= read -r line
     do
     data=$line
@@ -25,6 +24,6 @@ if [ -e /home/pranjal/whoconfig.txt ]
 else
     echo "Grant permission first ..."
     read -sp 'Password:' password
-    touch /home/pranjal/whoconfig.txt
-    echo $password >> /home/pranjal/whoconfig.txt 
+    touch /usr/local/bin/whoconfig.txt
+    echo $password >> /usr/local/bin/whoconfig.txt 
 fi

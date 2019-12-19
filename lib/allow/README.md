@@ -53,6 +53,6 @@ To set it up and running follow the instructions below:
       
 #### A note on security
      
-This module isn't secure. Its meant to be used as a **convenience tool**. It stores password in a plain txt file. It's meant 
+This module isn't secure. This was built merely as a personal project for personal use. It does not conform to any security standard. Its meant to be used as a **convenience tool**. It stores password in a plain txt file. It's meant 
 to be used only when the system has a single user. 
 Currently working on a much more secure, general version.

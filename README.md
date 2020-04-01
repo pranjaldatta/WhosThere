@@ -42,7 +42,7 @@ More documentation/features will be provdided shortly.
 This repository will undergo furthur changes! 
 
 ### Facial Recognition for Linux? 
-Check out the allow folder!
+Check out the [allow](https://github.com/pranjaldatta/WhosThere/tree/master/lib/allow) folder!
 
 
 ### Acknowledgements
